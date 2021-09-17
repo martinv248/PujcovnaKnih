@@ -103,7 +103,11 @@ namespace PujcovnaKnih.Controllers
         // GET: Books/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["Email"].Equals("admin")) 
+            { 
+                return View();
+            }
+            return RedirectToAction("Index");
         }
 
         // POST: Books/Create
@@ -126,16 +130,20 @@ namespace PujcovnaKnih.Controllers
         // GET: Books/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Session["Email"].Equals("admin"))
             {
+                if (id == null)
+                {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Book book = db.Books.Find(id);
-            if (book == null)
-            {
+                }
+                Book book = db.Books.Find(id);
+                if (book == null)
+                {
                 return HttpNotFound();
+                }
+                return View(book);
             }
-            return View(book);
+            return RedirectToAction("Index");
         }
 
         // POST: Books/Edit/5
@@ -155,18 +163,21 @@ namespace PujcovnaKnih.Controllers
         }
 
         // GET: Books/Delete/5
-        /*public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Book book = db.Books.Find(id);
-            if (book == null)
-            {
-                return HttpNotFound();
-            }
-            return View(book);
+            if (Session["Email"].Equals("admin")) { 
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Book book = db.Books.Find(id);
+                if (book == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(book);
+                }
+            return RedirectToAction("Index");
         }
 
         // POST: Books/Delete/5
@@ -178,7 +189,7 @@ namespace PujcovnaKnih.Controllers
             db.Books.Remove(book);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }*/
+        }
 
         protected override void Dispose(bool disposing)
         {

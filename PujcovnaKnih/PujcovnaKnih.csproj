@@ -157,6 +157,10 @@
     <Compile Include="Migrations\202109161530034_Initial.Designer.cs">
       <DependentUpon>202109161530034_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109171733362_ModelChanges.cs" />
+    <Compile Include="Migrations\202109171733362_ModelChanges.Designer.cs">
+      <DependentUpon>202109171733362_ModelChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\DbEntities.cs" />
@@ -286,6 +290,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202109161530034_Initial.resx">
       <DependentUpon>202109161530034_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109171733362_ModelChanges.resx">
+      <DependentUpon>202109171733362_ModelChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

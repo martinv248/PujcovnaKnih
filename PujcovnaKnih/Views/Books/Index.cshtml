@@ -9,9 +9,6 @@
 
 <h2>Přehled knih</h2>
 
-<p>
-    @Html.ActionLink("Vytvořit nový záznam", "Create")
-</p>
 @using (Html.BeginForm("Index", "Books", FormMethod.Get)){    
      <p> 
          Žánr: @Html.DropDownList("genre", "Vše")
@@ -37,7 +34,7 @@
             @Html.ActionLink("Cena", "Index")
         </th>
         <th>
-            @Html.ActionLink("K dispozici", "Index")
+            @Html.ActionLink("Stav", "Index")
         </th>
         <th></th>
     </tr>
@@ -60,13 +57,13 @@
         @Html.DisplayFor(modelItem => item.IsAvailable)
     </td>
     <td>
-        @if (item.IsAvailable.Equals("Volná")) 
-        { 
-            @Html.ActionLink("Půjčit si", "Create", "Orders", new { id=item.ID }, null)
-        }
+        <input type="button" value="Podrobnosti" onclick="@("window.location.href='" + @Url.Action("Details", new { id=item.ID}) + "'");" />
     </td>
     <td>
-        @Html.ActionLink("Info", "Details", new { id=item.ID })
+        @if (item.IsAvailable.Equals("Volná")) 
+        { 
+            <input type="button" value="Půjčit si" onclick="@("window.location.href='" + @Url.Action("Create", "Orders", new { id=item.ID}) + "'");" />
+        }
     </td>
 </tr>
 }

@@ -18,9 +18,15 @@ namespace PujcovnaKnih.Controllers
         // GET: Orders
         public ActionResult Index()
         {
+            if(Session["Email"].Equals("admin")) 
+            {
+                return View(db.Orders.ToList());
+            }
             if (Session["ID"] != null)
             {
                 var orders = from m in db.Orders select m;
+                int customerID = Convert.ToInt32(Session["ID"]);
+                orders = orders.Where(o => o.CustomerID == customerID);
                 return View(orders.ToList());
             }
             return RedirectToAction("Login", "Home");
@@ -66,6 +72,9 @@ namespace PujcovnaKnih.Controllers
             if (ModelState.IsValid)
             {
 
+                Book book = db.Books.Find(order.BookID);
+                book.IsAvailable = "Žádost o zapůjčení";
+                db.Entry(book).State = EntityState.Modified;
                 db.Orders.Add(order);
                 Debug.WriteLine("Customer ID: " + order.CustomerID + " Book ID: " + order.BookID + " Order date: " + order.OrderDate);
                 db.SaveChanges();
@@ -75,7 +84,20 @@ namespace PujcovnaKnih.Controllers
             return View();
         }
 
-        // GET: Orders/Edit/5
+        public ActionResult ReturnBook(int? id)
+        {
+            if (id != null)
+            {
+                Book book = db.Books.Find(id);
+                book.IsAvailable = "Žádost o vrácení";
+                db.Entry(book).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("UserDashBoard", "Home");
+            }
+            return RedirectToAction("Index");
+        }
+
+        // GET: Orders/Edit/
         public ActionResult Edit(int? id)
         {
             if (id == null)

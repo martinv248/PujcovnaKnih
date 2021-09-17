@@ -7,9 +7,6 @@
 
 <h2>Půjčené knihy</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -28,7 +25,7 @@
             @Html.DisplayName("Datum navrácení")
         </th>
         <th>
-            @Html.Display("Možnost vrácení")
+            @Html.DisplayName("Možnost vrácení")
         </th>
     </tr>
 
@@ -53,13 +50,8 @@
             <td>
                 @if(item.BorrowDate != null && item.ReturnDate == null)
                 {
-                    <input type="button" value="Vrátit knihu" />
+                <input type="button" value="Vrátit knihu" onclick="@("window.location.href='" + @Url.Action("ReturnBook", "Orders", new { id=item.BookID}) + "'");" />
                 }
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>
     }

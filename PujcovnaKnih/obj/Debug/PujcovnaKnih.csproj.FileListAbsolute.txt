@@ -103,3 +103,4 @@ C:\Users\Martin\source\repos\PujcovnaKnih\PujcovnaKnih\bin\PagedList.xml
 C:\Users\Martin\source\repos\PujcovnaKnih\PujcovnaKnih\bin\PagedList.Mvc.xml
 C:\Users\Martin\source\repos\PujcovnaKnih\PujcovnaKnih\obj\Debug\PujcovnaKnih.Migrations.Initial.resources
 C:\Users\Martin\source\repos\PujcovnaKnih\PujcovnaKnih\obj\Debug\PujcovnaKnih.csproj.GenerateResource.cache
+C:\Users\Martin\source\repos\PujcovnaKnih\PujcovnaKnih\obj\Debug\PujcovnaKnih.Migrations.ModelChanges.resources

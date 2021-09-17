@@ -17,13 +17,9 @@ namespace PujcovnaKnih.Models
     public partial class Users
     {
         public int ID { get; set; }
-        [Required, StringLength(50)]
         public string FName { get; set; }
-        [Required, StringLength(50)]
         public string LName { get; set; }
-        [EmailAddress(ErrorMessage = "E-mailová adresa není platná") ,Required, StringLength(50)]
         public string Email { get; set; }
-        [Required, StringLength(50)]
         public string Password { get; set; }
     }
 
