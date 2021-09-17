@@ -1,0 +1,44 @@
+﻿@model PujcovnaKnih.Models.Users
+@{ Layout = "~/Views/Shared/_UserLayoutPage.cshtml"; }
+@{
+    ViewBag.Title = "UserDashBoard";
+}
+
+<div>
+    <h2>Můj profil</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Jméno")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Příjmení")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("E-mail")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayName("Knihovna")
+        </dt>
+        <dd>
+            @Html.ActionLink("Půjčené knihy", "Index", "Orders", new { id=Model.ID }, null)
+        </dd>
+
+    </dl>
+    
+</div>
+

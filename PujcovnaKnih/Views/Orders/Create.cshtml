@@ -1,0 +1,53 @@
+﻿@model PujcovnaKnih.Models.Orders
+
+@{
+    ViewBag.Title = "Objednávka";
+    Layout = "~/Views/Shared/_UserLayoutPage.cshtml";
+}
+
+<h2>Shrnutí objednávky</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <dl class="dl-horizontal">
+        <dt class="dl-horizontal">
+            @Html.Label("ID knihy")
+        </dt>
+        <dd>
+            @Html.EditorFor(model => model.BookID, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            @Html.ValidationMessageFor(model => model.BookID, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.Label("ID zákazníka")
+        </dt>
+        <dd>
+            @Html.EditorFor(model => model.CustomerID, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+            @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.Label("Datum objednání")
+        </dt>
+        <dd>
+            @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+            @Html.Label(DateTime.Now.ToString())
+        </dd>
+    </dl>
+    <form class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Půjčit" class="btn btn-default" />
+    </form>
+}
+<br />
+<div>
+    <form action="/Books">
+        <input type="submit" value="Zpět" class="btn btn-default" />
+    </form>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

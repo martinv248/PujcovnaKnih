@@ -1,0 +1,63 @@
+﻿@model PujcovnaKnih.Models.Book
+@{ Layout = "~/Views/Shared/_UserLayoutPage.cshtml"; }
+@{
+    ViewBag.Title = "Info";
+}
+
+<h2>Info</h2>
+
+<div>
+    <h4>Kniha</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Titul")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Žánr")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Autor")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Cena za den")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Status")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAvailable)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (Model.IsAvailable.Equals("Volná"))
+    {
+        <input type="button" value="Žádost o zapůjčení" id="BorrowButton" />
+    }
+</p>
+<form action="/Books">
+    <input type="submit" value="Zpět" />
+</form>

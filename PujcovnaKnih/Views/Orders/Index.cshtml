@@ -1,0 +1,67 @@
+﻿@model IEnumerable<PujcovnaKnih.Models.Orders>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_UserLayoutPage.cshtml";
+}
+
+<h2>Půjčené knihy</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("ID Zákazníka")
+        </th>
+        <th>
+            @Html.DisplayName("ID Knihy")
+        </th>
+        <th>
+            @Html.DisplayName("Datum objednání")
+        </th>
+        <th>
+            @Html.DisplayName("Datum zapůjčení")
+        </th>
+        <th>
+            @Html.DisplayName("Datum navrácení")
+        </th>
+        <th>
+            @Html.Display("Možnost vrácení")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BorrowDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @if(item.BorrowDate != null && item.ReturnDate == null)
+                {
+                    <input type="button" value="Vrátit knihu" />
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
