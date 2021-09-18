@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataAnnotationsExtensions, Version=5.0.1.27, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataAnnotationsExtensions.5.0.1.27\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -157,9 +160,9 @@
     <Compile Include="Migrations\202109161530034_Initial.Designer.cs">
       <DependentUpon>202109161530034_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202109171733362_ModelChanges.cs" />
-    <Compile Include="Migrations\202109171733362_ModelChanges.Designer.cs">
-      <DependentUpon>202109171733362_ModelChanges.cs</DependentUpon>
+    <Compile Include="Migrations\202109181633142_ModelFix.cs" />
+    <Compile Include="Migrations\202109181633142_ModelFix.Designer.cs">
+      <DependentUpon>202109181633142_ModelFix.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
@@ -291,8 +294,8 @@
     <EmbeddedResource Include="Migrations\202109161530034_Initial.resx">
       <DependentUpon>202109161530034_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202109171733362_ModelChanges.resx">
-      <DependentUpon>202109171733362_ModelChanges.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202109181633142_ModelFix.resx">
+      <DependentUpon>202109181633142_ModelFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

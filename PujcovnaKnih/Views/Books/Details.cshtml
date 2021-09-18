@@ -55,7 +55,7 @@
 <p>
     @if (Model.IsAvailable.Equals("Volná"))
     {
-        <input type="button" value="Žádost o zapůjčení" id="BorrowButton" />
+        <input type="button" value="Půjčit si" onclick="@("window.location.href='" + @Url.Action("Create", "Orders", new { id=Model.ID}) + "'");" />
     }
 </p>
 <form action="/Books">

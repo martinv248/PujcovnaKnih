@@ -31,10 +31,10 @@
             @Html.ActionLink("Autor", "Index", new { sortOrder = ViewBag.AuthorSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Cena", "Index")
+            @Html.DisplayName("Cena")
         </th>
         <th>
-            @Html.ActionLink("Stav", "Index")
+            @Html.DisplayName("Stav")
         </th>
         <th></th>
     </tr>
@@ -70,5 +70,5 @@
 
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Stránka @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) ze @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

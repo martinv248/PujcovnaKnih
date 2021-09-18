@@ -9,18 +9,21 @@
 
 namespace PujcovnaKnih.Models
 {
+    using DataAnnotationsExtensions;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
+    using System.Web.Mvc;
 
-    public partial class Users
+    public partial class Users      // pozdeji je treba pridat validacni pravidla
     {
         public int ID { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Role { get; set; }
     }
 
     

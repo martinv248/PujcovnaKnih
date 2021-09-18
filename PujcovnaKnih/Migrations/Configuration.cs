@@ -20,7 +20,8 @@
                     FName = "Jon",
                     LName = "Doe",
                     Email = "doe@gmail.com",
-                    Password = "12345"
+                    Password = "12345",
+                    Role = "user"
                 }
                 );
             

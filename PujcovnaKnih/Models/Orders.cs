@@ -14,14 +14,17 @@ namespace PujcovnaKnih.Models
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
 
-    public class Orders
+    public class Orders         // pozdeji je treba pridat validacni pravidla
     {
         public int ID { get; set; }
         public int CustomerID { get; set; }
         public int BookID { get; set; }
+        public string State { get; set; }
         [DataType(DataType.DateTime), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm:ss}", ApplyFormatInEditMode = true)]
         public System.DateTime OrderDate { get; set; }
         public Nullable<System.DateTime> BorrowDate { get; set; }
         public Nullable<System.DateTime> ReturnDate { get; set; }
+        public string Invoiced { get; set; }
+        public Nullable<System.DateTime> InvoiceDate { get; set; }
     }
 }

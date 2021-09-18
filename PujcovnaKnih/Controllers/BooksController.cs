@@ -16,7 +16,7 @@ namespace PujcovnaKnih.Controllers
     {
         private DbEntities db = new DbEntities();
 
-        // GET: Books
+        // zobrazi seznam knih, ktere je mozne filtrovat a seradit
         public ViewResult Index(string sortOrder, string genre, string author, string searchString, string currentFilter, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -77,15 +77,11 @@ namespace PujcovnaKnih.Controllers
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            /*foreach(var book in books)
-            {
-                Debug.WriteLine("K dispozci: " + book.IsAvailable);
-            }*/
             return View(books.ToPagedList(pageNumber, pageSize));
         }
 
 
-        // GET: Books/Details/5
+        // zobrazi podrobnosti jednotlivych knih
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -100,10 +96,10 @@ namespace PujcovnaKnih.Controllers
             return View(book);
         }
 
-        // GET: Books/Create
+        // moznost vytvorit novy zaznam knihy (pouze admin)
         public ActionResult Create()
         {
-            if (Session["Email"].Equals("admin")) 
+            if (Session["Role"].Equals("admin")) 
             { 
                 return View();
             }
@@ -127,10 +123,10 @@ namespace PujcovnaKnih.Controllers
             return View(book);
         }
 
-        // GET: Books/Edit/5
+        // upravit udaje o knize (pouze admin)
         public ActionResult Edit(int? id)
         {
-            if (Session["Email"].Equals("admin"))
+            if (Session["Role"].Equals("admin"))
             {
                 if (id == null)
                 {
@@ -146,7 +142,7 @@ namespace PujcovnaKnih.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST: Books/Edit/5
+        // POST: Books/Edit/
         // Chcete-li zajistit ochranu před útoky typu OVERPOST, povolte konkrétní vlastnosti, k nimž 
         // chcete vytvořit vazbu. Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -162,10 +158,10 @@ namespace PujcovnaKnih.Controllers
             return View(book);
         }
 
-        // GET: Books/Delete/5
+        // smazat zaznam o knize (pouze admin)
         public ActionResult Delete(int? id)
         {
-            if (Session["Email"].Equals("admin")) { 
+            if (Session["Role"].Equals("admin")) { 
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -180,7 +176,7 @@ namespace PujcovnaKnih.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST: Books/Delete/5
+        // POST: Books/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

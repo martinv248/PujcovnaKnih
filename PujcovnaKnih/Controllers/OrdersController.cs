@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PujcovnaKnih.Models;
+using PagedList;
 
 namespace PujcovnaKnih.Controllers
 {
@@ -15,39 +16,48 @@ namespace PujcovnaKnih.Controllers
     {
         private DbEntities db = new DbEntities();
 
-        // GET: Orders
-        public ActionResult Index()
+        // beznemu uzivateli se zobrazi jejich vlastni objednavky, admin ma pristup ke vsem objednavkam
+        public ActionResult Index(int? page)
         {
-            if(Session["Email"].Equals("admin")) 
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            if (Session["Role"].Equals("admin")) 
             {
-                return View(db.Orders.ToList());
+                var orders = from m in db.Orders select m;
+                orders = orders.OrderBy(o => o.ID);
+                return View(orders.ToPagedList(pageNumber, pageSize));
             }
             if (Session["ID"] != null)
             {
                 var orders = from m in db.Orders select m;
                 int customerID = Convert.ToInt32(Session["ID"]);
                 orders = orders.Where(o => o.CustomerID == customerID);
-                return View(orders.ToList());
+                orders = orders.OrderBy(o => o.ID);
+                return View(orders.ToPagedList(pageNumber, pageSize));
             }
             return RedirectToAction("Login", "Home");
         }
 
-        // GET: Orders/Details/5
+        // GET: Orders/Details/
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if(Session["Role"].Equals("admin")) 
+            { 
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Orders orders = db.Orders.Find(id);
+                if (orders == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(orders);
             }
-            Orders orders = db.Orders.Find(id);
-            if (orders == null)
-            {
-                return HttpNotFound();
-            }
-            return View(orders);
+            return RedirectToAction("Index");
         }
 
-        // GET: Orders/Create
+        // pouze prihlaseny uzivatel muze vytvorit novou objednavku
         public ActionResult Create(int? id)
         {
             if (Session["ID"] != null)
@@ -56,41 +66,46 @@ namespace PujcovnaKnih.Controllers
                 order.BookID = (int)id;
                 order.CustomerID = Convert.ToInt32(Session["ID"]);
                 order.OrderDate = DateTime.Now;
+                Book book = db.Books.Find(order.BookID);
+                ViewBag.BookName = book.Title;
 
                 return View(order);
             }
             return RedirectToAction("Login", "Home");
         }
 
-        // POST: Orders/Create
-        // Chcete-li zajistit ochranu před útoky typu OVERPOST, povolte konkrétní vlastnosti, k nimž 
-        // chcete vytvořit vazbu. Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CustomerID,BookID,OrderDate")] Orders order)
+        // po vytvoreni objednavky se zmeni stav knihy na rezervnovana a stav objednavky na zadost o zapujceni
+        public ActionResult CompleteOrder(int bookID, int customerID, DateTime orderDate )
         {
             if (ModelState.IsValid)
             {
-
+                Orders order = new Orders();
+                order.BookID = bookID;
+                order.CustomerID = customerID;
+                order.OrderDate = orderDate;
                 Book book = db.Books.Find(order.BookID);
-                book.IsAvailable = "Žádost o zapůjčení";
-                db.Entry(book).State = EntityState.Modified;
-                db.Orders.Add(order);
-                Debug.WriteLine("Customer ID: " + order.CustomerID + " Book ID: " + order.BookID + " Order date: " + order.OrderDate);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (book.IsAvailable.Equals("Volná")) 
+                {
+                    book.IsAvailable = "Rezervovaná";
+                    order.State = "Žádost o zapůjčení";
+                    order.Invoiced = "Ne";
+                    db.Entry(book).State = EntityState.Modified;
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }        
             }
-
-            return View();
+            return RedirectToAction("Index");
         }
 
+        // pokud chce uzivatel vratit knihu, tak se status objednavky zmeni na zadost o vraceni
         public ActionResult ReturnBook(int? id)
         {
             if (id != null)
             {
-                Book book = db.Books.Find(id);
-                book.IsAvailable = "Žádost o vrácení";
-                db.Entry(book).State = EntityState.Modified;
+                Orders order = db.Orders.Find(id);
+                order.State = "Žádost o vrácení";
+                db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("UserDashBoard", "Home");
             }
@@ -100,19 +115,23 @@ namespace PujcovnaKnih.Controllers
         // GET: Orders/Edit/
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if(Session["Role"].Equals("admin")) 
+            { 
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Orders orders = db.Orders.Find(id);
+                if (orders == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(orders);
             }
-            Orders orders = db.Orders.Find(id);
-            if (orders == null)
-            {
-                return HttpNotFound();
-            }
-            return View(orders);
+            return RedirectToAction("Index");
         }
 
-        // POST: Orders/Edit/5
+        // POST: Orders/Edit/
         // Chcete-li zajistit ochranu před útoky typu OVERPOST, povolte konkrétní vlastnosti, k nimž 
         // chcete vytvořit vazbu. Další informace viz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -128,22 +147,26 @@ namespace PujcovnaKnih.Controllers
             return View(orders);
         }
 
-        // GET: Orders/Delete/5
+        // GET: Orders/Delete/
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Session["Role"].Equals("admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Orders orders = db.Orders.Find(id);
+                if (orders == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(orders);
             }
-            Orders orders = db.Orders.Find(id);
-            if (orders == null)
-            {
-                return HttpNotFound();
-            }
-            return View(orders);
+            return RedirectToAction("Index");
         }
 
-        // POST: Orders/Delete/5
+        // POST: Orders/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

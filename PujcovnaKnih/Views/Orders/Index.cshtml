@@ -1,4 +1,6 @@
-﻿@model IEnumerable<PujcovnaKnih.Models.Orders>
+﻿@model PagedList.IPagedList<PujcovnaKnih.Models.Orders>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
@@ -48,12 +50,14 @@
                 @Html.DisplayFor(modelItem => item.ReturnDate)
             </td>
             <td>
-                @if(item.BorrowDate != null && item.ReturnDate == null)
+                @if (item.BorrowDate != null && item.ReturnDate == null)
                 {
-                <input type="button" value="Vrátit knihu" onclick="@("window.location.href='" + @Url.Action("ReturnBook", "Orders", new { id=item.BookID}) + "'");" />
+                    <input type="button" value="Vrátit knihu" onclick="@("window.location.href='" + @Url.Action("ReturnBook", "Orders", new { id=item.ID}) + "'");" />
                 }
             </td>
         </tr>
     }
 
 </table>
+Stránka @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) ze @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
