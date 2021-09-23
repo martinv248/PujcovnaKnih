@@ -64,7 +64,7 @@
                     Genre = "Fantasy",
                     Author = "George R. R. Martin",
                     Price = 30M,
-                    IsAvailable = "Zapůjčená"
+                    IsAvailable = "Volná"
                 },
                 new Book
                 {
@@ -88,7 +88,7 @@
                     Genre = "Horor",
                     Author = "Stephen King",
                     Price = 10M,
-                    IsAvailable = "Zapůjčená"
+                    IsAvailable = "Volná"
                 },
                 new Book
                 {
@@ -120,7 +120,7 @@
                     Genre = "Horor",
                     Author = "Stephen King",
                     Price = 20M,
-                    IsAvailable = "Zapůjčená"
+                    IsAvailable = "Volná"
                 }
             );
         }

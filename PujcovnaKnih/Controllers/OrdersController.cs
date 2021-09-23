@@ -23,15 +23,26 @@ namespace PujcovnaKnih.Controllers
             int pageNumber = (page ?? 1);
             if (Session["Role"].Equals("admin")) 
             {
-                var orders = from m in db.Orders select m;
-                orders = orders.OrderBy(o => o.ID);
-                return View(orders.ToPagedList(pageNumber, pageSize));
+                return RedirectToAction("AdminIndex", 1);
             }
             if (Session["ID"] != null)
             {
                 var orders = from m in db.Orders select m;
                 int customerID = Convert.ToInt32(Session["ID"]);
                 orders = orders.Where(o => o.CustomerID == customerID);
+                orders = orders.OrderBy(o => o.ID);
+                return View(orders.ToPagedList(pageNumber, pageSize));
+            }
+            return RedirectToAction("Login", "Home");
+        }
+
+        public ActionResult AdminIndex(int? page)
+        {
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            if (Session["Role"].Equals("admin"))
+            {
+                var orders = from m in db.Orders select m;
                 orders = orders.OrderBy(o => o.ID);
                 return View(orders.ToPagedList(pageNumber, pageSize));
             }

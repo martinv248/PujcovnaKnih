@@ -3,8 +3,8 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_UserLayoutPage.cshtml";
+    ViewBag.Title = "AdminIndex";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
 }
 
 <h2>Půjčené knihy</h2>
@@ -13,6 +13,9 @@
     <tr>
         <th>
             @Html.DisplayName("ID Objednávky")
+        </th>
+        <th>
+            @Html.DisplayName("ID Zákazníka")
         </th>
         <th>
             @Html.DisplayName("ID Knihy")
@@ -29,9 +32,6 @@
         <th>
             @Html.DisplayName("Datum navrácení")
         </th>
-        <th>
-            @Html.DisplayName("Možnost vrácení")
-        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -39,6 +39,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BookID)
@@ -56,10 +59,9 @@
                 @Html.DisplayFor(modelItem => item.ReturnDate)
             </td>
             <td>
-                @if (item.State.Equals("Půjčena"))
-                {
-                    <input type="button" value="Vrátit knihu" onclick="@("window.location.href='" + @Url.Action("ReturnBook", "Orders", new { id=item.ID}) + "'");" />
-                }
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Podrobnosti", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Smazat", "Delete", new { id = item.ID })
             </td>
         </tr>
     }
@@ -67,3 +69,4 @@
 </table>
 Stránka @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) ze @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
