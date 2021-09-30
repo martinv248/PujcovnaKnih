@@ -16,11 +16,13 @@ namespace PujcovnaKnih.Models
     using System.Data.Entity;
     using System.Web.Mvc;
 
-    public partial class Users      // pozdeji je treba pridat validacni pravidla
+    public partial class Users
     {
         public int ID { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }

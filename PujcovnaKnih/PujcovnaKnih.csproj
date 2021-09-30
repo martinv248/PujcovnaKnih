@@ -164,6 +164,10 @@
     <Compile Include="Migrations\202109181633142_ModelFix.Designer.cs">
       <DependentUpon>202109181633142_ModelFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109301450363_EmailChange.cs" />
+    <Compile Include="Migrations\202109301450363_EmailChange.Designer.cs">
+      <DependentUpon>202109301450363_EmailChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\DbEntities.cs" />
@@ -297,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109181633142_ModelFix.resx">
       <DependentUpon>202109181633142_ModelFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109301450363_EmailChange.resx">
+      <DependentUpon>202109301450363_EmailChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -105,3 +105,4 @@ C:\Users\Martin\source\repos\PujcovnaKnih\PujcovnaKnih\obj\Debug\PujcovnaKnih.Mi
 C:\Users\Martin\source\repos\PujcovnaKnih\PujcovnaKnih\obj\Debug\PujcovnaKnih.csproj.GenerateResource.cache
 C:\Users\Martin\source\repos\PujcovnaKnih\PujcovnaKnih\bin\DataAnnotationsExtensions.dll
 C:\Users\Martin\source\repos\PujcovnaKnih\PujcovnaKnih\obj\Debug\PujcovnaKnih.Migrations.ModelFix.resources
+C:\Users\Martin\source\repos\PujcovnaKnih\PujcovnaKnih\obj\Debug\PujcovnaKnih.Migrations.EmailChange.resources

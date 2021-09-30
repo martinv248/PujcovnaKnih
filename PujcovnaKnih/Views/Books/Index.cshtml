@@ -17,7 +17,12 @@
          <input type="submit" value="Hledat" />
     </p> 
    } 
-
+<p>
+    @if (ViewBag.Role.Equals("admin"))
+    {
+        @Html.ActionLink("Vytvořit nový záznam", "Create");
+    }
+</p>
 
 <table class="table">
     <tr>

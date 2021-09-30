@@ -1,13 +1,13 @@
 ﻿@model PujcovnaKnih.Models.Orders
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Smazat objednávku";
     Layout = "~/Views/Shared/_UserLayoutPage.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Smazat objednávku</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Opravdu chcete tuto položku smazat??</h3>
 <div>
     <h4>Orders</h4>
     <hr />
@@ -58,8 +58,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Smazat" class="btn btn-default" /> |
+            @Html.ActionLink("Zpět", "Index")
         </div>
     }
 </div>

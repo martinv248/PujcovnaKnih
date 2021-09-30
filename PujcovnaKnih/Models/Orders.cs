@@ -14,7 +14,7 @@ namespace PujcovnaKnih.Models
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
 
-    public class Orders         // pozdeji je treba pridat validacni pravidla
+    public class Orders
     {
         public int ID { get; set; }
         public int CustomerID { get; set; }

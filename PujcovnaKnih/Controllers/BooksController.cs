@@ -23,7 +23,8 @@ namespace PujcovnaKnih.Controllers
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.GenreSortParm = String.IsNullOrEmpty(sortOrder) ? "genre_asc" : "";
             ViewBag.AuthorSortParm = String.IsNullOrEmpty(sortOrder) ? "author_asc" : "";
-            
+            ViewBag.Role = Session["Role"];
+
             if(searchString != null)
             {
                 page = 1;

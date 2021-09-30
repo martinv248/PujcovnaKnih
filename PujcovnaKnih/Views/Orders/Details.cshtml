@@ -1,11 +1,11 @@
 ﻿@model PujcovnaKnih.Models.Orders
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Podrobnosti objednávky";
     Layout = "~/Views/Shared/_UserLayoutPage.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Podrobnosti objednávky</h2>
 
 <div>
     <h4>Orders</h4>
@@ -55,5 +55,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Zpět", "Index")
 </p>
